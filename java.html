@@ -16,14 +16,18 @@ body{background:#fafafa;font-size:20px;font-family:Droid Sans Mono;}
 .wrap{width:400px;padding: 10px;
 background: #fff;}
 .wrap>div{padding-top:20px;}
-#code{background:#fff;height:250px;}
-#var{background:#fff;height:250px;border-top:1px solid #ccc;}
+#code{background:#fff;height:100px;}
+#var{background:#fff;height:390px;border-top:1px solid #ccc;}
 #res{background:#fff;height:500px;float:left;border-left:1px solid #ccc;width:379px !important;}
 #code span{display:block;width:100%;}
-#code span p {display:inline; -webkit-transition: background .25s ease-in-out;-moz-transition: background .25s ease-in-out;-o-transition: background .25s ease-in-out;transition: background .25s ease-in-out;}
+#code span p,#var font{border-radius:5px;}
+#code span .true:before,#code span .false:before{position:absolute;font-size:14px;margin-top:-20px;color:#ccc;font-weight:bold;}
+#code span .true:before{content:'TRUE';}
+#code span .false:before{content:'FALSE';}
+#code span p,#var font {display:inline; -webkit-transition: background .25s ease-in-out;-moz-transition: background .25s ease-in-out;-o-transition: background .25s ease-in-out;transition: background .25s ease-in-out;}
 .do{background:rgba(52, 152, 219,0.5);}
 .check{background:rgba(52, 152, 219,0.5);}
-.true{background:rgba(46, 204, 113,0.5);}
+.true{background:rgba(46, 204, 113,0.5);position:relative;}
 .false{background:rgba(231, 76, 60,0.5);}
 .output{display:block;width:100%;}
 #res:before,#code:before,#var:before{
@@ -78,11 +82,11 @@ $(function(){
 
 			if($('.code').hasClass('do')){
 				$('.inc').addClass('do');
-				$('.code').removeClass('do');
-				$('#var .i font').text(i);
+				$('.code,#var .r font').removeClass('do');
+				$('#var .i font').text(i).addClass('do');
 			}else if($('.inc').hasClass('do')){
 				$('.cond').addClass('check');
-				$('.inc').removeClass('do');
+				$('.inc,#var .i font').removeClass('do');
 			}else if($('.cond').hasClass('check')){
 				if(i<10){
 					i++;
@@ -97,7 +101,7 @@ $(function(){
 			}else if($('.cond').hasClass('true')){
 				$('.code').addClass('do');
 				round++;
-				$('#var .r font').text(round);
+				$('#var .r font').text(round).addClass('do');
 				$('#res').append('<span class="output">Hello</span>');
 				$('.cond').removeClass('true');
 			}
@@ -114,7 +118,7 @@ $(function(){
 		$('#res').html('');
 		$('#var .r font,#var .i font').text(0);
 		$('.cond').removeClass('false');
-		runcode=setInterval(function(){run()}, 500);
+		runcode=setInterval(function(){run()}, 800);
 		$('button').hide();
 	});
 
@@ -133,7 +137,7 @@ $(function(){
 	</div>
 	<div id="var">
 	<span class="r">Number of round = <font>0</font></span><br>
-	<span class="i">Current i = <font>0</font></span>
+	<span class="i">Current i = <font>0</font></span><br>
 	<button type="button" style="display:none">Run Again</button>
 	</div>
 </div>
