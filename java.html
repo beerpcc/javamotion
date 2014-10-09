@@ -1,0 +1,149 @@
+<html>
+<head>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script>
+
+
+
+</script>
+<style>
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|Droid+Sans+Mono");
+body{background:#fafafa;font-size:20px;font-family:Droid Sans Mono;}
+#main{width:800px;margin:0 auto;}
+#main div{width:380px;position:relative;float: left;}
+.wrap{width:400px;padding: 10px;
+background: #fff;}
+.wrap>div{padding-top:20px;}
+#code{background:#fff;height:250px;}
+#var{background:#fff;height:250px;border-top:1px solid #ccc;}
+#res{background:#fff;height:500px;float:left;border-left:1px solid #ccc;width:379px !important;}
+#code span{display:block;width:100%;}
+#code span p {display:inline; -webkit-transition: background .25s ease-in-out;}
+.do{background:rgba(52, 152, 219,0.5);}
+.check{background:rgba(52, 152, 219,0.5);}
+.true{background:rgba(46, 204, 113,0.5);}
+.false{background:rgba(231, 76, 60,0.5);}
+.output{display:block;width:100%;}
+#res:before,#code:before,#var:before{
+	color: #ccc;
+right: 10px;
+position: absolute;
+top: 5px;
+font-size: 19px;
+}
+#res:before{content: 'OUTPUT';
+}
+#code:before{content: 'CODE';}
+#var:before{content: 'VARIABLE';}
+</style>
+<script>
+$(function(){
+	var i=1;
+	var frst=true;
+	var round=0;
+	var runcode=setInterval(function(){run()}, 500);
+	function run(){
+		console.log(i);
+		if(i==1){
+
+			if(frst){
+				frst=false;
+				$('.inti').addClass('do');
+
+				$('#var .i font').text(i);
+			}else if($('.inti').hasClass('do')){
+				$('.cond').addClass('check');
+				$('.inti').removeClass('do');
+			}else if($('.cond').hasClass('check')){
+				if(i<10){
+					i++;
+					$('.cond').addClass('true').removeClass('check');
+				}else{
+					$('.cond').addClass('false').removeClass('check');
+					clearInterval(runcode);
+				}
+			}else if($('.cond').hasClass('true')){
+				$('.code').addClass('do');
+				$('#res').append('<span class="output">Hello</span>');
+				$('.cond').removeClass('true');
+			}
+
+					
+
+		}else{
+
+
+
+			if($('.code').hasClass('do')){
+				$('.inc').addClass('do');
+				$('.code').removeClass('do');
+				$('#var .i font').text(i);
+			}else if($('.inc').hasClass('do')){
+				$('.cond').addClass('check');
+				$('.inc').removeClass('do');
+			}else if($('.cond').hasClass('check')){
+				if(i<10){
+					i++;
+					$('.cond').addClass('true').removeClass('check');
+					
+					frst=false;
+				}else{
+					$('.cond').addClass('false').removeClass('check');
+					clearInterval(runcode);
+					$('button').show();
+				}
+			}else if($('.cond').hasClass('true')){
+				$('.code').addClass('do');
+				round++;
+				$('#var .r font').text(round);
+				$('#res').append('<span class="output">Hello</span>');
+				$('.cond').removeClass('true');
+			}
+
+
+
+		}
+	}
+
+	$('button').on('click',function(){
+		i=1;
+		frst=true;
+		round=0;
+		$('#res').html('');
+		$('#var .r font,#var .i font').text(0);
+		$('.cond').removeClass('false');
+		runcode=setInterval(function(){run()}, 500);
+		$('button').hide();
+	});
+
+
+
+});
+</script
+</head>
+<body>
+<div id="main">
+	<div class="wrap">
+	<div id="code">
+		<span>for(<p class="inti">int i=1</p>;<p class="cond">i<10</p>;<p class="inc">i++</p>){</span>
+		<span>&nbsp;&nbsp;<p class="code">System.out.println("hello");</p></span>
+		<span>}</span>
+	</div>
+	<div id="var">
+	<span class="r">Number of round = <font>0</font></span><br>
+	<span class="i">Current i = <font>0</font></span>
+	<button type="button" style="display:none">Run Again</button>
+	</div>
+</div>
+<div class="wrap">
+	<div id="res">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+	</div>
+</div>
+</body>
+</html>
